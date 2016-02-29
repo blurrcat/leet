@@ -1,5 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""
+64. Minimum Path Sum My Submissions Question
+Total Accepted: 64258 Total Submissions: 187652 Difficulty: Medium
+
+Given a m x n grid filled with non-negative numbers, find a path from top left
+to bottom right which minimizes the sum of all numbers along its path.
+
+Note: You can only move either down or right at any point in time.
+"""
 import pytest
 
 
