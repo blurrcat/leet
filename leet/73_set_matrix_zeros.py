@@ -18,6 +18,10 @@ import pytest
 
 
 class Solution(object):
+    """
+    To use constant space solution only, we need to mark locations to be set
+    to zero, while preserving the original zeros in the matrix.
+    """
     def setZeroes(self, matrix):
         """
         :type matrix: List[List[int]]
@@ -29,19 +33,20 @@ class Solution(object):
             return
         rows = len(matrix)
         cols = len(matrix[0])
-        row_queue = set()
-        col_queue = set()
+
         for i in range(rows):
             for j in range(cols):
                 if matrix[i][j] == 0:
-                    row_queue.add(i)
-                    col_queue.add(j)
-        for row in row_queue:
-            for j in range(cols):
-                matrix[row][j] = 0
+                    for ii in range(rows):
+                        if matrix[ii][j] != 0:  # only mark if it's not 0
+                            matrix[ii][j] = None  # mark as to be set
+                    for jj in range(cols):
+                        if matrix[i][jj] != 0:
+                            matrix[i][jj] = None
         for i in range(rows):
-            for col in col_queue:
-                matrix[i][col] = 0
+            for j in range(cols):
+                if matrix[i][j] is None:
+                    matrix[i][j] = 0
 
 
 TESTCASES = [
@@ -117,7 +122,6 @@ TESTCASES = [
             [1, 0, 0],
         ],
     ),
-
 ]
 
 
