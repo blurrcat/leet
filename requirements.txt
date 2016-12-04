@@ -1,3 +1,4 @@
 line_profiler
 pytest
 pytest-xdist
+pdbpp

@@ -10,3 +10,16 @@ clean-pyc:
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
 	-find ${VIRTUAL_ENV} -name '*.pyc' -delete
+
+FIND=find leet -type f -name *.py
+
+unprint:
+	$(FIND) -exec sed -i '' -E "s/(print.*)/# \1/g" {} \;
+
+print:
+	$(FIND) -exec sed -i '' -E "s/# (print.*)/\1/g" {} \;
+
+unpdb:
+	$(FIND) -exec sed -i '' -E "s/import pdb.*//g" {} \;
+
+leet: unprint unpdb
