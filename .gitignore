@@ -3,3 +3,5 @@
 # pycharm
 .idea
 *.pyc
+*.swp
+*.lprof
