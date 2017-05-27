@@ -37,17 +37,26 @@ class Solution(object):
 
     def maxRotateFunction(self, A):
         """
+        Notice F(k) - F(k-1) = sum(A) - n * Bk(0), where n = len(A)
+
         :type A: List[int]
         :rtype: int
         """
         if not A:
             return 0
         n = len(A)
-        idx = range(n)
-        return max(
-            sum(i * A[(i + rotate) % n] for i in idx)
-            for rotate in idx
-        )
+        total = 0
+        f = 0
+        for i, a in enumerate(A):
+            f += i * a
+            total += a
+        result = f
+        for k in range(1, n):
+            f2 = f + total - n * A[-k]
+            if f2 > result:
+                result = f2
+            f = f2
+        return result
 
 
 TESTCASES = [
@@ -58,6 +67,7 @@ TESTCASES = [
     [[-1, 1], 1],
     [[-10, 10, 1], 12],
     [[1] * 9999, 49985001],
+    [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 330],
 ]
 
 
