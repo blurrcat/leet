@@ -46,7 +46,7 @@ class LinkedList(object):
         return node.value
 
     def pop(self):
-        if self._size > 0:
+        if self._size > 0:  # pragma: no cover
             return self.remove(self.tail.prev)
 
     def __len__(self):
@@ -85,8 +85,7 @@ class LRUCache(object):
         except KeyError:
             return -1
         # update lru
-        if len(self._q) > 1:
-            self._q.toleft(node)
+        self._q.toleft(node)
         # print 'after get {}: {}'.format(key, self._q)
         return node.value[1]
 

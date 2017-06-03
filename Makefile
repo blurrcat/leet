@@ -1,9 +1,9 @@
-K ?= *
+.PHONY: prof clean clean-pyc unprint print install test cov htmlcov ci
 
-prof:
-	kernprof -v -l -b -o /dev/null py.test -k "$K"
+clean: clean-pyc clean-test
 
-clean: clean-pyc
+clean-test:
+	rm -rf htmlcov
 
 clean-pyc:
 	find . -name '*.pyc' -exec rm -f {} +
@@ -19,7 +19,21 @@ unprint:
 print:
 	$(FIND) -exec sed -i '' -E "s/# (print.*)/\1/g" {} \;
 
-unpdb:
-	$(FIND) -exec sed -i '' -E "s/import pdb.*//g" {} \;
+install:
+	pip install -r requirements.txt
 
-leet: unprint unpdb
+lint:
+	flake8
+
+test .coverage: clean
+	pytest --cov-report= --cov=leet --cov-fail-under=100 leet
+
+cov: .coverage
+	@coverage report --skip-covered
+
+htmlcov: .coverage
+	@coverage html --skip-covered
+	@echo "open htmlcov/index.html"
+
+ci junit.xml: clean lint
+	$(MAKE) test PYTEST_ADDOPTS=--junit-xml=junit.xml htmlcov

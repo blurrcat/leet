@@ -37,3 +37,7 @@ def test_66_plus_one(number):
     result = [int(d) for d in str(number + 1)]
     s = Solution()
     assert s.plusOne(digits) == result
+
+
+def test_empty_digits():
+    assert Solution().plusOne([]) == []

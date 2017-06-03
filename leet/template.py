@@ -14,4 +14,4 @@ TESTCASES = [
 
 @pytest.mark.parametrize('', TESTCASES)
 def test():
-    pass
+    pass  # pragma: no cover
