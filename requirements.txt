@@ -1,4 +1,5 @@
-line_profiler
+flake8
 pytest
-pytest-xdist
+pytest-watch
+pytest-cov
 pdbpp

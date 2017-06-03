@@ -39,7 +39,7 @@ class PriorityQueue:
         self._entry_map = {}
         self._counter = itertools.count()
 
-    def __nonzero__(self):
+    def __nonzero__(self):  # pragma: no cover
         return bool(self._entry_map)
 
     def is_empty(self):
@@ -65,10 +65,6 @@ class PriorityQueue:
             if item is not self.REMOVED:
                 del self._entry_map[item]
                 return item
-        raise KeyError('queue empty')
-
-    def top(self):
-        return self._h[0][-1]
 
     def __str__(self):
         return str(self._h)
@@ -79,7 +75,7 @@ class Graph:
     def __init__(self):
         self._edges = defaultdict(set)
 
-    def __contains__(self, v):
+    def __contains__(self, v):  # pragma: no cover
         return v in self._edges
 
     def add_edge(self, v1, v2):
@@ -132,13 +128,9 @@ class Solution(object):
                 if neighbor in nodes_q:
                     alt = distances[current] + 1
                     dist = distances[neighbor]
-                    # print('\tcheck neighbor {} - alt {}, min {}'.format(neighbor, alt, dist))
                     if alt < dist:
-                        # print('\t\tset dist[{}] = {}'.format(neighbor, alt))
                         distances[neighbor] = alt
                         nodes_q.add_or_update(neighbor, alt)
-
-        # print(distances)
 
         def visit(g, node, dest, path):
             new_path = path + [node]
