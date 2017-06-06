@@ -1,17 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""
+"""
 import pytest
 
 
 class Solution(object):
-    pass
+
+    def run(self):
+        pass
 
 
 TESTCASES = [
-
 ]
 
 
-@pytest.mark.parametrize('', TESTCASES)
-def test():
-    pass  # pragma: no cover
+@pytest.mark.parametrize('args,expected', TESTCASES)
+def test(args, expected):
+    actual = Solution().run(*args)
+    assert actual == expected
