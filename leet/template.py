@@ -7,11 +7,12 @@ import pytest
 
 class Solution(object):
 
-    def run(self):
+    def run(self, *args):
         pass
 
 
 TESTCASES = [
+    [[None], None]
 ]
 
 
