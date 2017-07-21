@@ -32,13 +32,19 @@ import random
 def _check(num, start, la, lb):
     ia = start + la
     ib = ia + lb
-    a = int(num[start: ia])
-    b = int(num[ia: ib])
+    a = num[start: ia]
+    b = num[ia: ib]
+    # if it's not 0 but starts with '0', then it's an invalid number
+    if (la > 1 and a[0] == '0') or (lb > 1 and b[0] == '0'):
+        return False
+    else:
+        a, b = int(a), int(b)
     expected = str(a + b)
     lc = len(expected)
     ic = ib + lc
-    if ic > len(num):
+    if ic > len(num) or (lc > 1 and num[ib] == '0'):
         return False
+
     if num[ib:ic] == expected:
         if ic == len(num):
             return True
@@ -74,6 +80,9 @@ TESTCASES = [
     ['11', False],
     ['112', True],
     ['111', False],
+    ['011', True],
+    ['1023', False],
+    ['101', True],
     ['112358', True],
     ['199100199', True],
     ['11213', True],
