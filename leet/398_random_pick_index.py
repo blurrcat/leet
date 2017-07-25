@@ -25,7 +25,6 @@ solution.pick(1);
 
 """
 import pytest
-import bisect
 import random
 
 
@@ -36,20 +35,15 @@ class Solution(object):
         :type nums: List[int]
         :type numsSize: int
         """
-        self.nums, self.idx = zip(*sorted(zip(nums, range(len(nums)))))
+        self.nums = nums
 
     def pick(self, target):
         """
         :type target: int
         :rtype: int
         """
-        left = bisect.bisect_left(self.nums, target)
-        right = bisect.bisect_right(self.nums, target) - 1
-        if left == right:
-            i = left
-        else:
-            i = random.randint(left, right)
-        return self.idx[i]
+        return random.choice([
+            i for i, n in enumerate(self.nums) if n == target])
 
 
 TESTCASES = [
