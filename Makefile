@@ -25,7 +25,7 @@ install:
 lint:
 	flake8
 
-test .coverage: clean
+test .coverage:
 	pytest --cov-report= --cov=leet --cov-fail-under=100 leet
 
 cov: .coverage
