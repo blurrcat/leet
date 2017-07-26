@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: v1-{{ checksum "requirements.txt" }}
+          key: v2
       - run: |
           pip install virtualenv
           virtualenv ~/venv
@@ -17,7 +17,7 @@ jobs:
           . ~/venv/bin/activate
           make ci
       - save_cache:
-          key: v2-{{ checksum "requirements.txt" }}
+          key: v2
           paths:
             - "~/.cache/pip"
             - "~/venv"
