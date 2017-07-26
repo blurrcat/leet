@@ -2,12 +2,12 @@ version: 2
 jobs:
   build:
     docker:
-      - image: python:2.7
+      - image: python:3.6
     working_directory: ~/leet
     steps:
       - checkout
       - restore_cache:
-          key: v1-{{ checksum "requirements.txt" }}
+          key: v1
       - run: |
           pip install virtualenv
           virtualenv ~/venv
@@ -17,7 +17,7 @@ jobs:
           . ~/venv/bin/activate
           make ci
       - save_cache:
-          key: v2-{{ checksum "requirements.txt" }}
+          key: v1
           paths:
             - "~/.cache/pip"
             - "~/venv"
