@@ -4,6 +4,7 @@ clean: clean-pyc clean-test
 
 clean-test:
 	rm -rf htmlcov
+	rm -rf .benchmarks
 
 clean-pyc:
 	find . -name '*.pyc' -exec rm -f {} +
@@ -26,7 +27,10 @@ lint:
 	flake8
 
 test .coverage:
-	pytest --cov-report= --cov=leet --cov-fail-under=100 leet
+	pytest --cov-report= --cov=leet --cov-fail-under=100 --benchmark-skip leet
+
+benchmark:
+	pytest --benchmark-only leet
 
 cov: .coverage
 	@coverage report --skip-covered

@@ -7,3 +7,5 @@
 *.lprof
 .coverage
 htmlcov
+*.egg-info
+.benchmarks

@@ -1,5 +1,7 @@
 flake8
 pytest
+pytest-benchmark
 pytest-watch
 pytest-cov
 pdbpp
+-e .
