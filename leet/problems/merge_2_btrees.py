@@ -26,7 +26,7 @@ Output:
 
 Note: The merging process must start from the root nodes of both trees.
 """
-from .ds import TreeNode
+from leet.ds.binary_tree import BinaryTreeNode as TreeNode
 
 
 def flatten(t, idx, result):

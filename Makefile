@@ -4,8 +4,10 @@ clean: clean-pyc clean-test
 
 clean-test:
 	rm -rf htmlcov
+	rm -rf .benchmarks
 
 clean-pyc:
+	find . -name '__pycache__' -exec rm -rf {} +
 	find . -name '*.pyc' -exec rm -f {} +
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
@@ -21,12 +23,16 @@ print:
 
 install:
 	pip install -r requirements.txt
+	pip install -e .
 
 lint:
 	flake8
 
-test .coverage:
-	pytest --cov-report= --cov=leet --cov-fail-under=100 leet
+test .coverage: clean
+	pytest --cov-report= --cov=leet --cov-fail-under=100 --benchmark-skip leet
+
+benchmark:
+	pytest --benchmark-only leet
 
 cov: .coverage
 	@coverage report --skip-covered
