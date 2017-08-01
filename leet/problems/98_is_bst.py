@@ -27,44 +27,29 @@ Example 2:
 Binary tree [1,2,3], return false.
 """
 import pytest
-from ds import TreeNode
+from leet.ds.binary_tree import BinaryTreeNode as TreeNode
 
 
-def visit(node, parent_val=None, is_left=None):
-    if not node:
+def validate(node, min_v=None, max_v=None):
+    if node is None:
         return True
-    if node.val == 2:
-        import pdb
-        pdb.set_trace()
-    if node.left:
-        l_val = node.left.val
-        if not l_val < node.val:
-            return False
-        if parent_val:
-            if is_left and not l_val < parent_val:
-                return False
-            if not is_left and not l_val > parent_val:
-                return False
-    if node.right:
-        l_val = node.right.val
-        if not l_val > node.val:
-            return False
-        if parent_val:
-            if is_left and not l_val < parent_val:
-                return False
-            if not is_left and not l_val > parent_val:
-                return False
-    return visit(
-        node.left, node.val, True) and visit(node.right, node.val, False)
+    if (min_v is not None and node.val <= min_v) or (
+            max_v is not None and node.val >= max_v):
+        return False
+    return validate(node.left, min_v, node.val) and validate(
+        node.right, node.val, max_v
+    )
 
 
 class Solution(object):
 
     def isValidBST(self, root):
-        return visit(root)
+        return validate(root)
 
 
 @pytest.mark.parametrize('nodes_list,expected', [
+    [[1], True],
+    [[], True],
     [[2, 1, 3], True],
     [[1, 2, 3], False],
     [[10, 5, 15, None, None, 6, 20], False],

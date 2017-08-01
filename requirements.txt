@@ -4,4 +4,3 @@ pytest-benchmark
 pytest-watch
 pytest-cov
 pdbpp
--e .
