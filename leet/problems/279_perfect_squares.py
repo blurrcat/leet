@@ -16,18 +16,18 @@ import math
 class Solution(object):
 
     def numSquares(self, num):
-        results = [None] * (num + 1)
+        # results[n] means the least number of perfect square numbers which
+        # add up to n
+        # the sub-problem is defined as:
+        # n can be the sum of some square number s and another number m.
+        # so results[n] = min(results[n - s] + 1, for each square number < n)
+        results = [0]
         for i in xrange(1, num + 1):
-            root = math.sqrt(i)
-            if int(root) == root:
-                r = 1
-            else:
-                r = min(
-                    results[j] + results[i - j]
-                    for j in xrange(1, int(i / 2) + 1)
-                )
-            # results.append(r)
-            results[i] = r
+            r = min(
+                results[i - j * j] + 1
+                for j in xrange(1, int(math.sqrt(i)) + 1)
+            )
+            results.append(r)
         return results[num]
 
 
