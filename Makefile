@@ -11,7 +11,6 @@ clean-pyc:
 	find . -name '*.pyc' -exec rm -f {} +
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
-	-find ${VIRTUAL_ENV} -name '*.pyc' -delete
 
 FIND=find leet -type f -name *.py
 
