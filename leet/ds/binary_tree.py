@@ -2,10 +2,15 @@
 
 class BinaryTreeNode(object):
 
-    def __init__(self, val, left=None, right=None):
+    def __init__(self, val, left=None, right=None, parent=None):
         self.val = val
         self.left = left
         self.right = right
+        if left:
+            self.left.parent = self
+        if right:
+            self.right.parent = self
+        self.parent = parent
 
     @classmethod
     def _from_list(cls, nodes_list, i=0):
@@ -40,13 +45,29 @@ class BinaryTreeNode(object):
     def __repr__(self):
         return 'N<{}>'.format(self.val)
 
-    def get_left_leaf(self):
-        parent = None
+    @property
+    def min(self):
         node = self
         while node.left:
-            parent = node
             node = node.left
-        return node, parent
+        return node
+
+    @property
+    def max(self):
+        node = self
+        while node.right:
+            node = node.right
+        return node
+
+    @property
+    def successor(self):
+        if self.right:
+            return self.right.min
+        node = self
+        parent = node.parent
+        while parent and parent.right == node:
+            node, parent = parent, parent.parent
+        return parent
 
 
 class BinarySearchTree(object):
@@ -85,59 +106,79 @@ class BinarySearchTree(object):
             tree._size = sum(1 for _ in tree)
             return tree
 
-    def _add(self, node, val):
-        if node is None:
-            node = BinaryTreeNode(val)
-            self._size += 1
-        elif val == node.val:
-            # duplicate vals are dropped
-            return
-        elif val < node.val:
-            node.left = self._add(node.left, val)
+    def add(self, val):
+        node = BinaryTreeNode(val)
+        parent = None
+        current = self._root
+        while current:
+            parent = current
+            if val < current.val:
+                current = current.left
+            elif val > current.val:
+                current = current.right
+            else:  # duplicate value; drop
+                return
+        node.parent = parent
+        if not parent:
+            # empty tree
+            self._root = node
+        elif node.val < parent.val:
+            parent.left = node
         else:
-            node.right = self._add(node.right, val)
+            parent.right = node
+        self._size += 1
+
+    def find(self, val):
+        node = self._root
+        while node and node.val != val:
+            if val >= node.val:
+                node = node.right
+            else:
+                node = node.left
         return node
 
-    def add(self, val):
-        self._root = self._add(self._root, val)
-
-    def _find(self, val, return_parent=False):
-        node = self._root
-        parent = None
-        while True:
-            if not node or node.val == val:
-                if return_parent:
-                    return node, parent
-                else:
-                    return node
-            if val >= node.val:
-                node, parent = node.right, node
-            else:
-                node, parent = node.left, node
+    def _transplant(self, n1, n2):
+        """
+        replace the subtree rooted at n1 with the subtree rooted at n2
+        """
+        if not n1.parent:
+            self._root = n2
+        elif n1 == n1.parent.left:
+            n1.parent.left = n2
+        else:
+            n1.parent.right = n2
+        if n2:
+            n2.parent = n1.parent
 
     def remove(self, val):
-        to_remove, parent = self._find(val, True)
+        to_remove = self.find(val)
         if to_remove:
             self._size -= 1
-            if to_remove.left and to_remove.right:
-                # the node to be removed has both left and right children
-                # find the min node in the right subtree
-                # use the its val for the parent
-                leaf, parent = to_remove.right.get_left_leaf()
-                to_remove.val = leaf.val
-                if parent:
-                    parent.left = None
+            if not to_remove.left:
+                self._transplant(to_remove, to_remove.right)
+            elif not to_remove.right:
+                self._transplant(to_remove, to_remove.left)
             else:
-                # the node to be removed has only one child
-                # replace the node with the child
-                subtree = to_remove.left or to_remove.right
-                if parent:
-                    if parent.left == to_remove:
-                        parent.left = subtree
-                    else:
-                        parent.right = subtree
-                else:
-                    self._root = subtree
+                # the node to be removed has both left and right children
+                # it should be replaced by its successor
+                successor = to_remove.successor
+                if successor.parent != to_remove:
+                    # successor is not a direct child of to_remove
+                    # by definition, successor may have only a right child
+                    self._transplant(successor, successor.right)
+                    successor.right = to_remove.right
+                    successor.right.parent = successor
+                self._transplant(to_remove, successor)
+                successor.left = to_remove.left
+                successor.left.parent = successor
+
+    @property
+    def min(self):
+        return self._root and self._root.min.val
+
+    @property
+    def max(self):
+        return self._root and self._root.max.val
 
     def __len__(self):
         return self._size
@@ -155,7 +196,7 @@ class BinarySearchTree(object):
                     yield node.val
 
     def __contains__(self, val):
-        return self._find(val) is not None
+        return self.find(val) is not None
 
     def __repr__(self):
         return 'T<{}>'.format(', '.join(repr(k) for k in self))
