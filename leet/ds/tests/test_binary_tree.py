@@ -26,6 +26,18 @@ def test_init_and_add():
     assert root.val == 2
 
 
+def test_min_max():
+    t = BinarySearchTree(items)
+    assert t.min == 2
+    assert t.max == 9
+
+
+def test_successor():
+    t = BinarySearchTree(items)
+    node_8 = t.find(8)
+    assert node_8.successor.val == 9
+
+
 def test_remove():
     t = BinarySearchTree(items)
 

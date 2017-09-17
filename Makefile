@@ -28,10 +28,10 @@ lint:
 	flake8
 
 test .coverage: clean
-	pytest --cov-report= --cov=leet --cov-fail-under=100 --benchmark-skip
+	pytest --cov-report= --cov=leet --cov-fail-under=100 --benchmark-skip leet
 
 benchmark:
-	pytest --benchmark-only
+	pytest --benchmark-only leet
 
 cov: .coverage
 	@coverage report --skip-covered
