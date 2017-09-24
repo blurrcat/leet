@@ -58,6 +58,8 @@ class Solution(object):
 def test_min_abs_diff_bst():
     s = Solution()
     root = TreeNode(1)
+    root.left = TreeNode(0)
+    root.left.right = TreeNode(0.5)
     root.right = TreeNode(3)
     root.right.left = TreeNode(2)
-    assert s.getMinimumDifference(root) == 1
+    assert s.getMinimumDifference(root) == 0.5
