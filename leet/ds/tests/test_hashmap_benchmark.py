@@ -1,6 +1,6 @@
 import random
 from leet.ds.hashmap import HashMap
-ROUNDS = 100
+ROUNDS = 128
 SIZE = 512
 N = 100
 
@@ -12,8 +12,7 @@ def test_bench_set(benchmark):
     m = HashMap()
 
     def setup():
-        global m, kvs
-        kvs = zip(keys, values)
+        global m
         m = HashMap(kvs)
 
     def bench_set():
