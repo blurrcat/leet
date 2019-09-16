@@ -22,6 +22,7 @@ after performing all the operations.
     4
 
 """
+import functools
 
 
 def merge(a, b):
@@ -37,5 +38,5 @@ class Solution(object):
         :rtype: int
         """
         ops.append((m, n))
-        merged = reduce(merge, ops)
+        merged = functools.reduce(merge, ops)
         return merged[0] * merged[1]

@@ -41,7 +41,7 @@ class Solution(object):
         :type root: TreeNode
         :rtype: int
         """
-        minimum = sys.maxint
+        minimum = sys.maxsize
         to_visit = [root]
         while to_visit:
             current = to_visit.pop()

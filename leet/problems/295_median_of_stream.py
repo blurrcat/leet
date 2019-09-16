@@ -60,9 +60,9 @@ class MedianFinder(object):
         """
         i = bisect.bisect(self._nums, num)
         self._nums.insert(i, num)
-        l = len(self._nums)
-        mid = l / 2
-        if l % 2 == 1:
+        length = len(self._nums)
+        mid = int(length / 2)
+        if length % 2 == 1:
             self._median = self._nums[mid]
         else:
             self._median = sum(self._nums[mid - 1: mid + 1]) / 2.0

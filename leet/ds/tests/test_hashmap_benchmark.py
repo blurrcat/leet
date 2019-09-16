@@ -6,9 +6,9 @@ N = 100
 
 
 def test_bench_set(benchmark):
-    keys = range(SIZE)
+    keys = list(range(SIZE))
     values = list(keys)
-    kvs = zip(keys, values)
+    kvs = list(zip(keys, values))
     m = HashMap()
 
     def setup():
@@ -23,7 +23,7 @@ def test_bench_set(benchmark):
 
 
 def test_bench_get(benchmark):
-    keys = range(SIZE)
+    keys = list(range(SIZE))
     values = list(keys)
     random.shuffle(values)
     m = HashMap(zip(keys, values))
@@ -36,7 +36,7 @@ def test_bench_get(benchmark):
 
 
 def test_bench_pop(benchmark):
-    keys = range(SIZE)
+    keys = list(range(SIZE))
     values = list(keys)
     m = HashMap()
 

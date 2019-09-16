@@ -34,15 +34,15 @@ class Solution(object):
             return 0
         n = len(grid[0])
 
-        total = [[0 for _ in xrange(n)] for _ in xrange(m)]
+        total = [[0 for _ in range(n)] for _ in range(m)]
         total[0][0] = grid[0][0]
 
-        for i in xrange(1, m):
+        for i in range(1, m):
             total[i][0] = total[i - 1][0] + grid[i][0]
-        for j in xrange(1, n):
+        for j in range(1, n):
             total[0][j] = total[0][j - 1] + grid[0][j]
-        for i in xrange(1, m):
-            for j in xrange(1, n):
+        for i in range(1, m):
+            for j in range(1, n):
                 total[i][j] = min(
                     total[i - 1][j], total[i][j - 1]) + grid[i][j]
         return total[m - 1][n - 1]

@@ -47,7 +47,7 @@ class Solution(object):
             else:
                 aj = nums[i + 1]
                 remove_from_sorted(aj)
-            for j in xrange(i + 2, total):
+            for j in range(i + 2, total):
                 if nums[j] >= aj:
                     aj = nums[j]
                     remove_from_sorted(aj)
@@ -80,7 +80,7 @@ TESTCASES = [
     [[1], False],
     [[1, 2], False],
     # performance
-    [range(15000) + [1], True],  # [0, 2, 1], ..., [0, 14999, 1]
+    [list(range(15000)) + [1], True],  # [0, 2, 1], ..., [0, 14999, 1]
     [[random.choice([0, 1]) for _ in range(15000)], False]
 ]
 

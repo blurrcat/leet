@@ -46,7 +46,7 @@ class Solution(object):
         p.__class__.__eq__ = __eq__
         result = 0
         points_counter = Counter(points)
-        uq_points = points_counter.keys()
+        uq_points = list(points_counter.keys())
         for i, p1 in enumerate(uq_points):
             # given p1, a line can be identified by its slope
             slopes = Counter()  # slope to count
@@ -57,7 +57,7 @@ class Solution(object):
                     slope = Fraction(p2.y - p1.y, p2.x - p1.x)
                 slopes[slope] += points_counter[p2]
             if slopes:
-                local_max = max(slopes.itervalues()) + points_counter[p1]
+                local_max = max(slopes.values()) + points_counter[p1]
             else:  # only p1 left
                 local_max = points_counter[p1]
             if local_max > result:

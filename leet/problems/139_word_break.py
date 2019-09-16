@@ -41,8 +41,8 @@ class Solution(object):
         a = [False] * (n + 1)
         a[0] = True
         wordDict = set(wordDict)
-        for i in xrange(1, n+1):
-            for j in xrange(0, i):
+        for i in range(1, n+1):
+            for j in range(0, i):
                 if a[j] and s[j:i] in wordDict:
                     a[i] = True
                     break

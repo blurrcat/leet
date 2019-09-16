@@ -13,7 +13,7 @@ class Solution(object):
         if not digits:
             return digits
         carry = 1
-        for i in xrange(len(digits) - 1, -1, -1):
+        for i in range(len(digits) - 1, -1, -1):
             digits[i] += carry
             if digits[i] > 9:
                 digits[i] -= 10

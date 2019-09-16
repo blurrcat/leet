@@ -86,4 +86,4 @@ class Solution(object):
             else:
                 return 'No solution'
         else:
-            return 'x={}'.format(-d/x)
+            return 'x={}'.format(int(-d/x))

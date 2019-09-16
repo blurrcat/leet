@@ -1,5 +1,5 @@
 import pytest
-from mock import patch
+from unittest.mock import patch
 from leet.ds.hashmap import HashMap
 
 
@@ -50,7 +50,7 @@ def test_grow():
 
 def test_collision():
     m = HashMap()
-    with patch('__builtin__.hash', return_value=10000):
+    with patch('builtins.hash', return_value=10000):
         m.set('a', 1)
         m.set('b', 2)
         m.set('c', 3)

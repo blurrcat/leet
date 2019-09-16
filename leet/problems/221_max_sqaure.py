@@ -47,9 +47,9 @@ class Solution(object):
             return 0
         rows, cols = len(matrix), len(matrix[0])
         max_size = 0
-        dp = [[0] * cols for _ in xrange(rows)]
-        for i in xrange(rows):
-            for j in xrange(cols):
+        dp = [[0] * cols for _ in range(rows)]
+        for i in range(rows):
+            for j in range(cols):
                 if matrix[i][j] == '1':
                     if i > 0 and j > 0:
                         dp[i][j] = min(

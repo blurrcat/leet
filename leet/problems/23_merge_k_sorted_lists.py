@@ -48,7 +48,7 @@ class Solution(object):
             return None
         while len(lists) > 1:
             merged = []
-            for i in xrange(0, len(lists), 2):
+            for i in range(0, len(lists), 2):
                 if i + 1 < len(lists):
                     # merge 2 lists
                     a = lists[i]

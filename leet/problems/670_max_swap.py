@@ -39,13 +39,13 @@ class Solution(object):
             num = num // 10
         # the index of the largest digit from digits[0] to digits[i]
         largests = [0]
-        for i in xrange(1, len(digits)):
+        for i in range(1, len(digits)):
             idx = largests[-1]
             if digits[i] > digits[idx]:
                 largests.append(i)
             else:
                 largests.append(idx)
-        for i in xrange(len(digits) - 1, -1, -1):
+        for i in range(len(digits) - 1, -1, -1):
             idx = largests[i]
             if digits[idx] > digits[i]:
                 digits[idx], digits[i] = digits[i], digits[idx]

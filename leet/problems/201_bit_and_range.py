@@ -9,6 +9,7 @@ of all numbers in this range, inclusive.
 For example, given the range [5, 7], you should return 4.
 """
 import pytest
+import functools
 import operator
 import math
 
@@ -52,4 +53,4 @@ TESTCASES = [
 @pytest.mark.parametrize('m,n', TESTCASES)
 def test_bit_and_range(m, n):
     actual = Solution().rangeBitwiseAnd(m, n)
-    assert actual == reduce(operator.and_, range(m, n + 1))
+    assert actual == functools.reduce(operator.and_, range(m, n + 1))
