@@ -1,5 +1,6 @@
 # pytest
 .cache
+__pycache__
 # pycharm
 .idea
 *.pyc
