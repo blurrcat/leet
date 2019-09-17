@@ -3,4 +3,5 @@ pytest
 pytest-benchmark
 pytest-watch
 pytest-cov
+pytest-profiling
 pdbpp
